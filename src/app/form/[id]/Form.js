@@ -1,11 +1,13 @@
 "use client"
 
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import React from 'react'
+import { toast } from 'react-toastify';
 
 const Form = (fields) => {
 
-
+    const router = useRouter()
 
     // console.log(field.field.formDoc);
     let formContent = fields.fields.formDoc[0].content
@@ -25,7 +27,7 @@ const Form = (fields) => {
 
     const submitForm = async (e) => {
         e.preventDefault()
-    
+
         // looping through our questions and getting the values based on the element name
         const formTargets = e.target
         let data = [];
@@ -41,23 +43,64 @@ const Form = (fields) => {
         const title = field.title
         const id = field.id
         const user_data = { title, id, user_data: data }
-    
-        // console.log(user_data);
-        
-        const response = await axios.post("http://localhost:3000/api/submit", user_data)
-        
-        const res = await response.data
-        const userDataArray = res.userDoc.user_data
-        // console.log(userData);
-        const userDetails = {}
-        userDataArray.map((field) => {
-            userDetails[field.question_type] = field.answer
-        })
-        
-        const submitted_user = await axios.post("http://localhost:3000/api/user-data", userDetails)
-        console.log(submitted_user.data);
 
-    
+        // console.log(user_data);
+        try {
+            const response = await axios.post("http://localhost:3000/api/submit", user_data)
+
+            const res = await response.data
+            const userDataArray = res.userDoc.user_data
+            // console.log(userData);
+            const userDetails = {}
+            userDataArray.map((field) => {
+                userDetails[field.question_type] = field.answer
+            })
+
+
+            const submitted_user = await axios.post("http://localhost:3000/api/user-data", userDetails)
+            console.log(submitted_user.data);
+
+            toast.success('Form submitted', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+
+            router.push("http://localhost:3000")
+
+        } catch (error) {
+            toast.error('Oops! We are having some trouble generating your form', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+        
+        // const response = await axios.post("http://localhost:3000/api/submit", user_data)
+
+        // const res = await response.data
+        // const userDataArray = res.userDoc.user_data
+        // // console.log(userData);
+        // const userDetails = {}
+        // userDataArray.map((field) => {
+        //     userDetails[field.question_type] = field.answer
+        // })
+
+
+        // const submitted_user = await axios.post("http://localhost:3000/api/user-data", userDetails)
+        // console.log(submitted_user.data);
+
+
     }
     return (
         <div className='mt-5 mx-auto m-2 flex-col max-w-[780px] min-h-screen border-t-4 rounded-lg border-gray-700 bg-white'>

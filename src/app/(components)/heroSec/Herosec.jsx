@@ -23,9 +23,9 @@ const Herosec = () => {
                     </p>
 
                     <div class="mt-4 md:mt-8">
-                     
-                            <button onClick={createForm} className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400">Create form</button>
-                     
+
+                        <button onClick={createForm} className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400">Create form</button>
+
                     </div>
                 </div>
             </div>

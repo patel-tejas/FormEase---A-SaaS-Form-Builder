@@ -1,8 +1,13 @@
 "use client"
 import { useState } from 'react'
 import axios from "axios";
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+
 
 export default function Home({ params }) {
+    const router = useRouter();
+
     const [title, setTitle] = useState("")
     const [formContent, setFormContent] = useState([])
     const [onEdit, setOnEdit] = useState(false)
@@ -68,19 +73,45 @@ export default function Home({ params }) {
             return
         }
         const id = params.id
-        const link = `http://localhost:3001/form/${id}`
+        const link = `http://localhost:3000/form/${id}`
         const data = { id, title, form: formContent, link: link }
         // console.log(data);
-        
-        const response = await axios.post("/api/create-form", JSON.stringify(data))
-        // const response = await fetch('http://localhost:3001/api/create-form', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(data)
-        // })
-        // const res = await response.json()
-        console.log(response);
-        alert("Form Created")
+
+        try {
+            const response = await axios.post("/api/create-form", JSON.stringify(data))
+            // const response = await fetch('http://localhost:3001/api/create-form', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // })
+            // const res = await response.json()
+            // console.log(response);
+            toast.success('Form created Successfully', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            alert("Form Created and is now available at: " + link)
+            router.push(link)
+            
+        } catch (error) {
+            toast.error('Oops! We are having some trouble generating your form', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+
     }
 
 
