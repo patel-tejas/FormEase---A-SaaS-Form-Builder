@@ -70,7 +70,7 @@ export default function Home({ params }) {
         const id = params.id
         const link = `http://localhost:3001/form/${id}`
         const data = { id, title, form: formContent, link: link }
-        console.log(data);
+        // console.log(data);
         
         const response = await axios.post("/api/create-form", JSON.stringify(data))
         // const response = await fetch('http://localhost:3001/api/create-form', {

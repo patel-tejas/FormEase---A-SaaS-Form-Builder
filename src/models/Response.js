@@ -13,4 +13,4 @@ const ResponseSchema = new Schema({
     user_data: [{ question: String, answer: String, question_type: String, list: Array }],
 })
 
-module.exports = mongoose.model('response', ResponseSchema)
+module.exports = mongoose.models.response || mongoose.model('response', ResponseSchema)
