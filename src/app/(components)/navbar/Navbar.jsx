@@ -21,9 +21,9 @@ const Navbar = () => {
         </Link>
       </div>
       
-      <div className='flex gap-4 items-center'>
-        <h2>About Us</h2>
-        <button onClick={createForm} className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400">Create form</button>
+      <div className='flex gap-8 items-center'>
+        <Link href="/about" className='hover:text-pink-600 duration-200'>About Us</Link>
+        <button onClick={createForm} className="inline-block rounded w-max bg-pink-600 px-7 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400">Create form</button>
 
       </div>
     </div>

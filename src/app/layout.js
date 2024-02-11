@@ -29,6 +29,9 @@ export default function RootLayout({ children }) {
           pauseOnHover
           theme="light"
         />
+        {/* <div className="h-[5vh] bg-pink-500 text-white w-full text-center">
+        🎉 Fill form once and then we are there for your convenience ! 🎉
+        </div> */}
         <Navbar />
         {children}
         <Footer />
